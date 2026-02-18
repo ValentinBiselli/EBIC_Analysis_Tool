@@ -19,14 +19,14 @@ from DiffLenExt import DiffusionLengthExtractor
 from perpendicular import gradient_with_window
 
 # Set up paths - get all subdirectories in perpendicular_plots
-perpendicular_plots_root = Path(r'C:\Users\biselli\Desktop\Code\MasterThesis\EBIC_Analysis_Tool\perpendicular_plots')
+perpendicular_plots_root = Path(r'C:\Users\biselli\Desktop\Code\MasterThesis\EBIC_Analysis_Tool\perpendicular_plots_kV')
 data_dirs = [d for d in perpendicular_plots_root.iterdir() if d.is_dir()]
 
 print(f"Found {len(data_dirs)} subdirectories in perpendicular_plots:")
 for d in data_dirs:
     print(f"  {d.name}")
 
-vb_input = "0,02,04,06,08,1"
+vb_input = "0,01,02,03,04,05,06,07,08,09,1"
 profile_input = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17"
 # -------------------------------------------
 
@@ -332,15 +332,46 @@ print("Functions defined successfully!")
 #     'filter_cutoff': 0.65           # Low-pass filter cutoff (0 = no filtering)
 # }
 
-
+# Raphs original params
+# params = {
+#     # Global defaults
+#     'use_plateau_detection': True,
+#     'use_shifting': True,
+#     'gradient_window': 15,
+#     'min_plateau_length': 8,
+#     'derivative_threshold': 0.2,
+#     'absolute_threshold': 0.12,
+#     'max_expansion': 1000,
+#     'consecutive_drops': 20,
+#     'use_r2_threshold': True,
+#     'min_r2_threshold': 0.999,
+#     'junction_precision': False,
+#     'use_filtered_data': True,
+#     'filter_cutoff': 0.65, # 0 to 1 (higher = more smoothing)
+    
+#     # Left side
+#     'left_params': {
+#     },
+    
+#     # Right side
+#     'right_params': {
+#         'min_plateau_length': 20,
+#         # 'min_r2_threshold': 0.95,
+#         # 'consecutive_drops': 5,
+#         # 'max_expansion': 1000,
+#         # 'search_from_end': False,
+#         # 'use_full_right_profile': False,
+#     }
+# }
+#2-3keV zoomed
 params = {
     # Global defaults
     'use_plateau_detection': True,
     'use_shifting': True,
     'gradient_window': 15,
     'min_plateau_length': 8,
-    'derivative_threshold': 0.2,
-    'absolute_threshold': 0.12,
+    'derivative_threshold': 0.1,
+    'absolute_threshold': 0.05,
     'max_expansion': 1000,
     'consecutive_drops': 20,
     'use_r2_threshold': True,
@@ -356,10 +387,11 @@ params = {
     # Right side
     'right_params': {
         'min_plateau_length': 20,
+        'derivative_threshold': 0.15,
         # 'min_r2_threshold': 0.95,
         # 'consecutive_drops': 5,
         # 'max_expansion': 1000,
-        # 'search_from_end': False,
+        'search_from_end': False,
         # 'use_full_right_profile': False,
     }
 }
@@ -459,7 +491,7 @@ for extractor, csv_file in zip(extractors, csv_files):
 
 # Save to CSV
 results_df = pd.DataFrame(results_data)
-output_path = perpendicular_plots_root / 'fitting_results_summary_Raph.csv'
+output_path = perpendicular_plots_root / 'fitting_results_summary_kV_2-3keV_zoomed.csv'
 results_df.to_csv(output_path, index=False)
 print(f"\n{'='*60}")
 print(f"Saved fitting results to: {output_path}")

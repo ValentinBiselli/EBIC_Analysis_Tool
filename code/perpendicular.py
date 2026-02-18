@@ -202,12 +202,12 @@ def plot_perpendicular_profiles(profiles, ax=None, fig=None, source_name=None, d
         # Create a 3-row plot: top = SEM (normalized) + Current (linear) via twin y,
         # middle = ln(Current), bottom = ln derivative (dlnI/dx only)
         fig_prof, (ax1, ax_log, ax_der) = plt.subplots(3, 1, sharex=True, figsize=(6, 7), gridspec_kw={'height_ratios': [1, 1, 0.8]})
-        ax1.plot(dist_um, sem_vals_norm, color='tab:blue', linewidth=2, label='SEM (norm)')
+        ax1.plot(dist_um, sem_vals_norm, color='tab:blue', linewidth=1.2, label='SEM (norm)')
 
         # Plot linear current on a twin axis above (original behavior)
         ax1b = ax1.twinx()
         cur = np.array(cur_vals)
-        ax1b.plot(dist_um, cur, color='tab:red', linewidth=1.2, label='Current (nA)')
+        ax1b.plot(dist_um, cur, color='tab:red', linewidth=2, label='Current (nA)')
         # Debug: current stats
         if debug:
             try:
