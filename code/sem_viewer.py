@@ -1933,6 +1933,7 @@ class SEMViewer:
 
         return fit_perpendicular_profiles_linear(self)
 
+    # Not used
     def _update_detected_junction_with_weight(self):
         """Re-run junction detection on the last ROI using the current EBIC weight
         and update the green detected line on the main viewer axes.

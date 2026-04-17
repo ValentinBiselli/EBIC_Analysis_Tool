@@ -3600,7 +3600,7 @@ class DiffusionLengthExtractor:
                     right_params=right_params
                 )
             elif use_plateau_detection:
-                # NEW: Use derivative plateau detection only
+                # NEW: Use derivative plateau detection only. FASTER BUT LESS ROBUST
                 sides = self.fit_profile_sides_plateau_based(
                     x_vals, y_vals,
                     intersection_idx=intersection_idx,
@@ -3611,7 +3611,7 @@ class DiffusionLengthExtractor:
                     absolute_threshold=absolute_threshold
                 )
             else:
-                # OLD: Use iterative window search
+                # OLD: Use iterative window search. NOT RECOMMENDED
                 sides = self.fit_profile_sides_iterative_linear(
                     x_vals, y_vals,
                     intersection_idx=intersection_idx,

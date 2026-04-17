@@ -19,3 +19,24 @@ perpendicular_plots/
 
 # tiff test output
 tiff_test_output/
+
+perpendicular_plots_P1/
+perpendicular_plots_Raph_14C/
+perpendicular_plots_Raph_16A/
+perpendicular_plots_Raph_unsure/
+perpendicular_plots_Raph_unzoomed/
+perpendicular_plots_Raph_zoomed/
+perpendicular_plots_Raph_zoomed2_17A/
+perpendicular_plots_good/
+perpendicular_plots_kV_25B/
+perpendicular_plots_kV_unzoomed_25B/
+perpendicular_plots_p4/
+perpendicular_plots_unzoomed/
+
+25B2_45-200_data.csv
+Raph_Lp_data.csv
+Raph_Lp_data_17A.csv
+
+analyse_Raph.ipynb
+report.ipynb
+test_plateau_detection_RAPH.ipynb

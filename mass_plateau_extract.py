@@ -19,7 +19,7 @@ from DiffLenExt import DiffusionLengthExtractor
 from perpendicular import gradient_with_window
 
 # Set up paths - get all subdirectories in perpendicular_plots
-perpendicular_plots_root = Path(r'C:\Users\biselli\Desktop\Code\MasterThesis\EBIC_Analysis_Tool\perpendicular_plots_kV')
+perpendicular_plots_root = Path(r"C:\Users\biselli\Desktop\Code\MasterThesis\EBIC_Analysis_Tool\perpendicular_plots_Raph_14C")
 data_dirs = [d for d in perpendicular_plots_root.iterdir() if d.is_dir()]
 
 print(f"Found {len(data_dirs)} subdirectories in perpendicular_plots:")
@@ -35,8 +35,11 @@ vb_tokens = [t.strip() for t in vb_input.split(',') if t.strip()]
 vb_patterns = []
 for t in vb_tokens:
     tt = t.lower()
-    if tt in ('0', 'novb', 'no', 'n'):           # treat as noVb
+    if tt in ('0', 'novb', 'no', 'n'):           # treat as noVb or zero voltage
         vb_patterns.append('novb')
+        vb_patterns.append('vb0v')   # Also match Vb0V format
+        vb_patterns.append('vb0')    # Also match Vb0 format
+        vb_patterns.append('vb00')   # Also match Vb00 format
     elif tt.startswith('vb'):                     # user passed "VB02" or "vb02"
         num = tt[2:]
         vb_patterns.append('vb' + num)
@@ -333,45 +336,14 @@ print("Functions defined successfully!")
 # }
 
 # Raphs original params
-# params = {
-#     # Global defaults
-#     'use_plateau_detection': True,
-#     'use_shifting': True,
-#     'gradient_window': 15,
-#     'min_plateau_length': 8,
-#     'derivative_threshold': 0.2,
-#     'absolute_threshold': 0.12,
-#     'max_expansion': 1000,
-#     'consecutive_drops': 20,
-#     'use_r2_threshold': True,
-#     'min_r2_threshold': 0.999,
-#     'junction_precision': False,
-#     'use_filtered_data': True,
-#     'filter_cutoff': 0.65, # 0 to 1 (higher = more smoothing)
-    
-#     # Left side
-#     'left_params': {
-#     },
-    
-#     # Right side
-#     'right_params': {
-#         'min_plateau_length': 20,
-#         # 'min_r2_threshold': 0.95,
-#         # 'consecutive_drops': 5,
-#         # 'max_expansion': 1000,
-#         # 'search_from_end': False,
-#         # 'use_full_right_profile': False,
-#     }
-# }
-#2-3keV zoomed
 params = {
     # Global defaults
     'use_plateau_detection': True,
     'use_shifting': True,
     'gradient_window': 15,
     'min_plateau_length': 8,
-    'derivative_threshold': 0.1,
-    'absolute_threshold': 0.05,
+    'derivative_threshold': 0.2,
+    'absolute_threshold': 0.12,
     'max_expansion': 1000,
     'consecutive_drops': 20,
     'use_r2_threshold': True,
@@ -387,14 +359,45 @@ params = {
     # Right side
     'right_params': {
         'min_plateau_length': 20,
-        'derivative_threshold': 0.15,
         # 'min_r2_threshold': 0.95,
         # 'consecutive_drops': 5,
         # 'max_expansion': 1000,
-        'search_from_end': False,
+        # 'search_from_end': False,
         # 'use_full_right_profile': False,
     }
 }
+#2-3keV zoomed
+# params = {
+#     # Global defaults
+#     'use_plateau_detection': True,
+#     'use_shifting': True,
+#     'gradient_window': 15,
+#     'min_plateau_length': 8,
+#     'derivative_threshold': 0.1,
+#     'absolute_threshold': 0.05,
+#     'max_expansion': 1000,
+#     'consecutive_drops': 20,
+#     'use_r2_threshold': True,
+#     'min_r2_threshold': 0.999,
+#     'junction_precision': False,
+#     'use_filtered_data': True,
+#     'filter_cutoff': 0.65, # 0 to 1 (higher = more smoothing)
+    
+#     # Left side
+#     'left_params': {
+#     },
+    
+#     # Right side
+#     'right_params': {
+#         'min_plateau_length': 20,
+#         'derivative_threshold': 0.15,
+#         # 'min_r2_threshold': 0.95,
+#         # 'consecutive_drops': 5,
+#         # 'max_expansion': 1000,
+#         'search_from_end': False,
+#         # 'use_full_right_profile': False,
+#     }
+# }
 # Run fitting for all selected profiles
 extractors = fit_and_plot_profiles(csv_files, params, debug=False)
 
